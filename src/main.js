@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, session } = require('electron');
 const path = require('path');
 
 if (require('electron-squirrel-startup')) {
@@ -6,6 +6,12 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = () => {
+  session.defaultSession.protocol.registerFileProtocol('static', (request, callback) => {
+    const fileUrl = request.url.replace('static://', '');
+    const filePath = path.join(app.getAppPath(), '.webpack/renderer', fileUrl);
+    callback(filePath);
+  });
+
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,

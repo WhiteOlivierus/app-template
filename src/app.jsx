@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import Engine from "engine";
+
+import Engine from "Engine";
 import projectData from "./projectData";
 
 const importAll = (resource) => resource.keys().map(resource);
